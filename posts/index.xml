@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Alex Via</title>
+    <link>https://alexvia.com/posts/</link>
+    <description>Recent content in Posts on Alex Via</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 28 Oct 2021 08:30:53 +0200</lastBuildDate><atom:link href="https://alexvia.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>https://alexvia.com/posts/my_first_post/</link>
+      <pubDate>Thu, 28 Oct 2021 08:30:53 +0200</pubDate>
+      
+      <guid>https://alexvia.com/posts/my_first_post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
