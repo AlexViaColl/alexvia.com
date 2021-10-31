@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.89.0-DEV" />
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+
+<title>8 Uses of Pointers in C - Alex Via</title>
+
+
+<meta name="author" content="Alex Via" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="beginner, coding, c" />
+
+
+<meta property="og:title" content="8 Uses of Pointers in C" />
+<meta name="twitter:title" content="8 Uses of Pointers in C" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alexvia.com/post/uses_of_pointers_in_c/" /><meta property="og:description" content="At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&rsquo;s type.
+printf(&quot;%d\n&quot;, sizeof(int*)); printf(&quot;%d\n&quot;, sizeof(char*)); printf(&quot;%d\n&quot;, sizeof(void*)); printf(&quot;%d\n&quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in." />
+<meta name="twitter:description" content="At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&rsquo;s type.
+printf(&quot;%d\n&quot;, sizeof(int*)); printf(&quot;%d\n&quot;, sizeof(char*)); printf(&quot;%d\n&quot;, sizeof(void*)); printf(&quot;%d\n&quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in." /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="article:published_time" content="2021-10-31T00:00:00+00:00" /><meta property="article:modified_time" content="2021-10-31T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://alexvia.com/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='true'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://alexvia.com">Alex Via</a>
+            
+            <span class="title-sub">I blog about tech stuff.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1577 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beginner">beginner</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p>At a fundamental level a pointer is just a number which represents a memory address.
+The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes)
+and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given
+platform regardless of the pointer&rsquo;s type.</p>
+<pre><code class="language-c">printf(&quot;%d\n&quot;, sizeof(int*));
+printf(&quot;%d\n&quot;, sizeof(char*));
+printf(&quot;%d\n&quot;, sizeof(void*));
+printf(&quot;%d\n&quot;, sizeof(MyCustomType*));
+</code></pre>
+<p>A memory address specifies the location of a single byte in memory, if we wanted to read only
+a single bit from memory, we would have to read a whole byte and then do some bit twiddling
+to extract the bit we were interested in.</p>
+<h2 id="1-modify-another-variables-value">1. Modify another variable&rsquo;s value</h2>
+<p>The most basic usage of pointers is to modify the value of the variable they are pointing to.
+The address-of operator <em>&amp;</em> is used to get the memory address of a variable, which we can then
+assign to a variable of type pointer. Once we have a pointer initialized we can read or modify
+the variable we are pointing to by using the derreference operator <em>*</em>.</p>
+<pre><code class="language-c">int foo = 10;
+int *ptr = &amp;foo; // Get the address of foo and store it in the pointer ptr.
+*ptr = 20; // Modify the value pointed to by ptr (foo).
+printf(&quot;foo: %d\n&quot;, foo);
+</code></pre>
+<h2 id="2-calling-by-pointer">2. Calling &ldquo;by pointer&rdquo;</h2>
+<p>We can achieve the same result as before but in a function by passing the argument &ldquo;by pointer&rdquo;:</p>
+<pre><code class="language-c">void my_func(int *ptr) {
+	*ptr = 20;
+}
+
+int main() {
+	int foo = 10;
+	my_func(&amp;foo);
+	printf(&quot;foo: %d\n, foo);
+}
+</code></pre>
+<p>In this simple example, it might not be clear which are the benefits of passing foo by pointer
+instead of just returning the value 20 directly and assigning it to foo like this:</p>
+<pre><code class="language-c">int my_func() {
+	return 20;
+}
+
+int main() {
+	int foo = 10;
+	foo = my_func();
+	printf(&quot;foo: %d\n&quot;, foo);
+}
+</code></pre>
+<p>But whereas you can only return a single value, you can have multiple parameters of type pointer.
+So, this method is useful when you want to have multiple return values.</p>
+<h2 id="3-string-literals">3. String literals</h2>
+<p>Pointers are also very commonly used to store the address of string literals.</p>
+<pre><code class="language-c">char *message = &quot;You Rock!&quot;;
+</code></pre>
+<p>These literals are typically stored in a read-only section of the executable binary, therefore the content of
+these literals cannot be modified.</p>
+<pre><code class="language-c">// message[0] = 'y'; // This produces an error at runtime!
+</code></pre>
+<p>The pointer value that we get back when creating a string literal always refers to the memory
+address of the first character, and the string literal is always null terminated.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+int main() {
+	char *message = &quot;You Rock!&quot;;
+	printf(&quot;The first character is: '%c' which is the same as '%c'\n&quot;,
+		message[0], *message);
+	printf(&quot;The literal \&quot;%s\&quot; is located at address: 0x%08X\n&quot;,
+		message, message);
+
+	message = &quot;You're amazing!&quot;;
+	printf(&quot;The literal \&quot;%s\&quot; is located at address: 0x%08X\n&quot;,
+		message, message);
+
+	printf(&quot;The string ends with %d\n&quot;, *(message + 15));
+}
+</code></pre>
+<p><img class="img-zoomable" src="../../literals_memory.png" alt="literals memory layout" />
+</p>
+<h2 id="4-allocating-memory">4. Allocating memory</h2>
+<p>Another usage is to store a pointer to a block of allocated memory. The C standard library <em>stdlib.h</em>
+provides the <a href="https://en.cppreference.com/w/c/memory/malloc" target="_blank">malloc</a> function which takes a size
+in bytes and returns a pointer to the start of a block of memory with the size we specified on
+success, or a NULL pointer on failure.</p>
+<pre><code class="language-c">char *buffer = (char*)malloc(1024); // allocate a block of 1024 bytes
+</code></pre>
+<p>Usually, the operating system provides its own set of functions to allocate memory, which give the
+user more control over how the allocation is done.</p>
+<p>On Windows, we have the function <a href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc" target="_blank">VirtualAlloc</a>
+which allows us to specify, among other things, which permissions do we want for the allocated
+memory, do we want write only memory or we also want to have execute access.</p>
+<p>On Linux, the function <a href="https://man7.org/linux/man-pages/man2/mmap.2.html" target="_blank">mmap</a> is used to map a
+file into memory, but the same function can be used to allocate memory by setting the flag
+<em>MAP_ANONYMOUS</em>.</p>
+<h2 id="5-arrays">5. Arrays</h2>
+<p>In C, arrays are just a contiguous region of memory with enough size to fit the elements we specify.
+The compiler implicitly keeps information about the size of an array, and we also know the size of
+a single element in the array. Therefore, we can compute the number of elements by dividing these
+two values.</p>
+<pre><code class="language-c">int numbers[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+printf(&quot;sizeof(numbers): %d\n&quot;, sizeof(numbers)); // sizeof(int) * 10
+int count = sizeof(numbers) / sizeof(numbers[0]); // 10
+</code></pre>
+<p>There is a catch though, when we pass the array as an argument to a function that information is lost.
+In fact, the function declarations <em>void foo(int arr[]);</em> and <em>void foo(int *arr);</em> are equivalent.</p>
+<pre><code class="language-c">void print_size(int arr[]) {
+	// Warning on most compilers. Prints the same as sizeof(int*)
+	printf(&quot;sizeof(arr): %d\n&quot;, sizeof(arr));
+}
+
+int main() {
+	int numbers[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	print_size(numbers); // numbers is passed as if it was an int*
+}
+</code></pre>
+<p>Since the array size information is lost when calling other functions, it is very common to have an
+extra function parameter that specifies how many elements are in the array.</p>
+<pre><code class="language-c">void print_array(int arr[], int count) {
+	for (int i = 0; i &lt; count; i++) {
+		printf(&quot;%d\n&quot;, arr[i]);
+	}
+}
+</code></pre>
+<p>The parameters <em>argc</em> and <em>argv</em> in the <em>main</em> function is another example of this. In this case,
+the type of each element in the array <em>argv</em> is <em>char *</em>, which is itself a null-terminated array of
+characters.</p>
+<pre><code class="language-c">int main(int argc, char **argv) {
+	for (int i = 0; i &lt; argc; i++) {
+		printf(&quot;argument[%d]: %s\n&quot;, i, argv[i]);
+	}
+}
+</code></pre>
+<h2 id="6-data-structures">6. Data structures</h2>
+<p>Pointers are also fundamental to many data structures such as Single and Doubly Linked Lists or Trees.
+The discussion of these data structures is out of the scope of this post, but we will show how some
+of this structures could be defined using pointers.</p>
+<pre><code class="language-c">typedef struct {
+	ListNode *prev;
+	ListNode *next;
+	// Any additional data
+} ListNode;
+</code></pre>
+<p><img class="img-zoomable" src="../../linked_list.png" alt="Linked List" />
+</p>
+<pre><code class="language-c">typedef struct {
+	TreeNode *left;
+	TreeNode *right;
+	// Any additional data
+} TreeNode;
+</code></pre>
+<p><img class="img-zoomable" src="../../binary_tree.png" alt="Linked List" />
+</p>
+<h2 id="7-function-pointers">7. Function pointers</h2>
+<p>Just as variables have an address where their value is stored, functions also have an address, in
+this case though, it&rsquo;s the address where the executable code of the function is located.
+We can get the address of a function just by its name, we don&rsquo;t need to use the <em>&amp;</em> operator.</p>
+<pre><code class="language-c">int sum(int a, int b) {
+	return a + b;
+}
+
+int main() {
+	printf(&quot;The address of sum is 0x%08X\n&quot;, sum);
+}
+</code></pre>
+<p>The syntax for specifying the type of function pointers is a bit tricky, but you can always look it
+up or use <a href="https://www.cdecl.org" target="_blank">cdecl.org</a>. In our case the type would be <em>int (*fptr_name)(int, int)</em>.
+And once, we have a pointer to the function, we cani just call it like if it was a regular function.</p>
+<pre><code class="language-c">int sum(int a, int b) {/*...*/}
+
+int main() {
+	int (*sum_fptr)(int, int) = sum;
+	printf(&quot;1 + 2 = %d\n&quot;, sum_fptr(1, 2));
+}
+</code></pre>
+<h2 id="8-opaque-types">8. Opaque types</h2>
+<p>This last usage is often used by libraries as a way to keep implementation details hidden from the
+users of the library. More specifically, what is hidden from the users is the definition of internal
+structs within the library. That way, the mantainers of the library can change the internal definition
+of the structs without affecting the users.</p>
+<p>Let&rsquo;s imagine that we were the authors of a library for creating a window. We could define a simple
+API for the library in the header file <em>window.h</em> like this:</p>
+<pre><code class="language-c">// window.h
+typedef struct Window Window;
+
+Window *create(int width, int height);
+void show(Window *window);
+void destroy(Window *window);
+</code></pre>
+<p>In the first line, we declare an incomplete type <em>Window</em>. This allows us, to use this type without
+knowing the actual structure layout, as long as we use it as a pointer. And the compiler know,
+that the actual definition of the struct will come later. Following the declaration of <em>Window</em> we
+have the prototypes of 3 functions for creating, showing and destroying a window. Notice how
+all of these methods either return a pointer to <em>Window</em> or take a parameter of type pointer to
+<em>Window</em>.</p>
+<p>Users can start using the library, and they cannot see which fields there are inside of a <em>Window</em>.
+That is a good thing, because if the authors of the library ever decided to release a new version
+changing the internals of the <em>Window</em> struct, the user&rsquo;s code should still compile without changes.</p>
+<pre><code class="language-c">// main.c
+#include &quot;window.h&quot;
+int main() {
+	Window *window = create(800, 600);
+	show(window);
+	destroy(window);
+}
+</code></pre>
+<p>The internal implementation of the library could look something like this:</p>
+<pre><code class="language-c">// window.c
+#include &quot;window.h&quot;
+#include &lt;stdio.h&gt;
+
+typedef struct Window {
+	int handle; // Fields private to this file
+} Window;
+
+Window *create(int width, int height) {
+	Window *window = (Window*)malloc(sizeof(Window));
+	window-&gt;handle = 123; // Simulate that we created a window handle
+	return window;
+}
+
+void show(Window *window) {
+	printf(&quot;Showing the window\n&quot;);
+}
+
+void destroy(Window *window) {
+	if (window) {
+		free(window);
+	}
+}
+</code></pre>
+<p>The same concept can be applied to cross platform code. In this case we could have one implementation
+file for every supported platform, for example <em>win32_window.c</em> and <em>linux_window.c</em> and the actual
+definition of the <em>Window</em> struct could be different.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>We have seen that the concept of pointers is very simple at a fundamental level. However, there are
+many ways they can be used which is why sometimes it can get confusing. Figuring out which of the
+use cases presented in this post is being used at any point can help you avoid the confusion.</p>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-modify-another-variables-value">1. Modify another variable&rsquo;s value</a></li>
+    <li><a href="#2-calling-by-pointer">2. Calling &ldquo;by pointer&rdquo;</a></li>
+    <li><a href="#3-string-literals">3. String literals</a></li>
+    <li><a href="#4-allocating-memory">4. Allocating memory</a></li>
+    <li><a href="#5-arrays">5. Arrays</a></li>
+    <li><a href="#6-data-structures">6. Data structures</a></li>
+    <li><a href="#7-function-pointers">7. Function pointers</a></li>
+    <li><a href="#8-opaque-types">8. Opaque types</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-modify-another-variables-value">1. Modify another variable&rsquo;s value</a></li>
+    <li><a href="#2-calling-by-pointer">2. Calling &ldquo;by pointer&rdquo;</a></li>
+    <li><a href="#3-string-literals">3. String literals</a></li>
+    <li><a href="#4-allocating-memory">4. Allocating memory</a></li>
+    <li><a href="#5-arrays">5. Arrays</a></li>
+    <li><a href="#6-data-structures">6. Data structures</a></li>
+    <li><a href="#7-function-pointers">7. Function pointers</a></li>
+    <li><a href="#8-opaque-types">8. Opaque types</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://alexvia.com">Alex Via</a>
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

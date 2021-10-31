@@ -6,14 +6,27 @@
     <description>Recent content on Alex Via</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Oct 2021 08:30:53 +0200</lastBuildDate><atom:link href="https://alexvia.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
-      <link>https://alexvia.com/posts/my_first_post/</link>
-      <pubDate>Thu, 28 Oct 2021 08:30:53 +0200</pubDate>
+      <title>8 Uses of Pointers in C</title>
+      <link>https://alexvia.com/post/uses_of_pointers_in_c/</link>
+      <pubDate>Sun, 31 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/posts/my_first_post/</guid>
-      <description></description>
+      <guid>https://alexvia.com/post/uses_of_pointers_in_c/</guid>
+      <description>At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&amp;rsquo;s type.
+printf(&amp;quot;%d\n&amp;quot;, sizeof(int*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(char*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(void*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in.</description>
+    </item>
+    
+    <item>
+      <title>About Hugo</title>
+      <link>https://alexvia.com/about/</link>
+      <pubDate>Sat, 11 Apr 2020 19:15:32 +0800</pubDate>
+      
+      <guid>https://alexvia.com/about/</guid>
+      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hugo makes use of a variety of open source projects including:
+ https://github.com/yuin/goldmark https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper  Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.</description>
     </item>
     
   </channel>

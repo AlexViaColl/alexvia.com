@@ -19,7 +19,7 @@
 
 
 
-<title>Alex Via - I blog about tech stuff.</title>
+<title>beginner - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,12 +28,12 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/index.xml" title="Alex Via" />
+<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/beginner/index.xml" title="Alex Via" />
 
-<meta property="og:title" content="Alex Via" />
-<meta name="twitter:title" content="Alex Via" />
+<meta property="og:title" content="beginner" />
+<meta name="twitter:title" content="beginner" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta property="og:url" content="https://alexvia.com/tags/beginner/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-10-31T00:00:00+00:00" />
 
@@ -99,22 +99,31 @@
             <div class="col-12 col-md-9 float-left content">
                 
 
+<div class="page-info">
+  <span>Posts with the tag beginner: </span>
+</div>
+
 
 
 <div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
+  <h2 class="post-item post-title">
+    <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
+  </h2>
+  <div class="post-item post-meta">
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
 
 <span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1577 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beginner">beginner</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
 
-    </div>
-	
+  </div>
+  <div class="post-item post-summary markdown-body">
+    At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&rsquo;s type.
+printf(&quot;%d\n&quot;, sizeof(int*)); printf(&quot;%d\n&quot;, sizeof(char*)); printf(&quot;%d\n&quot;, sizeof(void*)); printf(&quot;%d\n&quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in.
+  </div>
 </div>
+
+
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
