@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.89.0-DEV" />
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+
+<title>Opening a Window in X11 - Alex Via</title>
+
+
+<meta name="author" content="Alex Via" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="linux, gui, coding" />
+
+
+<meta property="og:title" content="Opening a Window in X11" />
+<meta name="twitter:title" content="Opening a Window in X11" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alexvia.com/post/xlib_opening_window/" /><meta property="og:description" content="The X Window System is a windowing system commonly used in UNIX-based operating systems. The latest version of X is version 11 (released 2012), that&rsquo;s why it&rsquo;s often abbreviated as X11.
+X11 is based on a client-server architecture. The server is the one who has direct access over the hardware devices such as the monitor screens, the keyboard and the mouse. Client applications should make requests to the server in order to achieve any kind of graphical output to the screen.
+X is not the only Window System available for Linux and other UNIX-like operating systems. Wayland is a more modern project with the aim of replacing X." />
+<meta name="twitter:description" content="The X Window System is a windowing system commonly used in UNIX-based operating systems. The latest version of X is version 11 (released 2012), that&rsquo;s why it&rsquo;s often abbreviated as X11.
+X11 is based on a client-server architecture. The server is the one who has direct access over the hardware devices such as the monitor screens, the keyboard and the mouse. Client applications should make requests to the server in order to achieve any kind of graphical output to the screen.
+X is not the only Window System available for Linux and other UNIX-like operating systems. Wayland is a more modern project with the aim of replacing X." /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="article:published_time" content="2021-11-07T00:00:00+00:00" /><meta property="article:modified_time" content="2021-11-07T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://alexvia.com/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='true'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://alexvia.com">Alex Via</a>
+            
+            <span class="title-sub">I blog about tech stuff.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://alexvia.com/post/xlib_opening_window/">Opening a Window in X11</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-07</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;667 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/gui">gui</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p><a href="https://www.x.org" target="_blank">The X Window System</a> is a windowing system commonly used in UNIX-based
+operating systems. The latest version of X is version 11 (released 2012), that&rsquo;s why it&rsquo;s often
+abbreviated as X11.</p>
+<p>X11 is based on a client-server architecture. The server is the one who has direct access over
+the hardware devices such as the monitor screens, the keyboard and the mouse.
+Client applications should make requests to the server in order to achieve any kind of
+graphical output to the screen.</p>
+<p>X is not the only Window System available for Linux and other UNIX-like operating systems.
+<a href="https://wayland.freedesktop.org/" target="_blank">Wayland</a> is a more modern project with the aim of replacing X.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>A linux machine (or VM) with X installed and configured</li>
+<li>The X11 development package <em>libx11-dev</em> (Ubuntu) <em>libx11</em> (Arch)</li>
+<li>The code for this post, which you can find <a href="https://github.com/AlexViaColl/x11-open-window" target="_blank">here</a></li>
+</ul>
+<h1 id="implementation">Implementation</h1>
+<p>Most definitions for X11 can be found in the <em>X11/Xlib.h</em> header, so make sure to include this at the
+start of your program.</p>
+<pre><code class="language-c">#include &lt;X11/Xlib.h&gt;
+</code></pre>
+<p>The first thing every X client needs to do is establish a connection with the X server.
+This is achieved by calling the <a href="https://tronche.com/gui/x/xlib/display/opening.html" target="_blank">XOpenDisplay</a> function, which on success, returns
+a handle representing the connection established, commonly referred to as the &ldquo;display&rdquo;.
+From this point forward, the display handle can be used to issue commands to the x server,
+such as creating a window, getting input from the keyboard or drawing text.
+When the client application is about to quit or it no longer requires access to the Windowing
+system, it should close the connection by calling the <a href="https://tronche.com/gui/x/xlib/display/XCloseDisplay.html" target="_blank">XCloseDisplay</a> function.</p>
+<pre><code class="language-c">Display *display = XOpenDisplay(NULL); // display name
+</code></pre>
+<p>Once we have established a connection to the display, we can start making requests to the X server.
+For instance, we can request to create a new window by calling <a href="https://tronche.com/gui/x/xlib/window/XCreateWindow.html" target="_blank">XCreateSimpleWindow</a>.
+We can use <a href="https://tronche.com/gui/x/xlib/display/display-macros.html#DefaultRootWindow" target="_blank">XDefaultRootWindow</a> to grab the root window for the display and use it as our parent
+window.
+Another way to create a window is by calling <a href="https://tronche.com/gui/x/xlib/window/XCreateWindow.html" target="_blank">XCreateWindow</a> instead, which provides more options
+for specifying window attributes, but we won&rsquo;t cover it on this post.</p>
+<pre><code class="language-c">Window window = XCreateSimpleWindow(
+	display,
+	XDefaultRootWindow(display),	// parent
+	0, 0,							// x, y
+	800, 600,						// width, height
+	0,								// border width
+	0x00000000,						// border color
+	0x00000000						// background color
+);
+</code></pre>
+<p>The <a href="https://tronche.com/gui/x/xlib/ICC/client-to-window-manager/XStoreName.html" target="_blank">XStoreName</a> procedure let&rsquo;s us set a name or caption for the window.</p>
+<pre><code class="language-c">XStoreName(display, window, &quot;Amazing X11 Window&quot;);
+</code></pre>
+<p>By default, the X server will not report any event to clients in order to save bandwitdh. A client
+application should specify which events it&rsquo;s interested on, via <a href="https://tronche.com/gui/x/xlib/event-handling/XSelectInput.html" target="_blank">XSelectInput</a> with a mask of event
+types. In our case, we are only going to request to be notified about key press and key release
+events.</p>
+<pre><code class="language-c">XSelectInput(display, window, KeyPressMask|KeyReleaseMask);
+</code></pre>
+<p>If you ran the program up to this point you would realize that no window is displayed to the screen.
+We first need to request for the window to be displayed or &ldquo;mapped&rdquo; by calling <a href="https://tronche.com/gui/x/xlib/window/XMapWindow.html" target="_blank">XMapWindow</a>. You
+can think of mapping and unmapping as showing and hiding a window.</p>
+<pre><code class="language-c">XMapWindow(display, window);
+</code></pre>
+<p>At the heart of any graphical application we have the event processing loop. There are many ways of
+writing an event loop, which may vary depending on the domain of your application, the event loop
+for a game is going to be different from the event loop for a spreadsheet program or a business
+management application.</p>
+<pre><code class="language-c">bool quit = false;
+while (!quit) {
+	while (XPending(display) &gt; 0) {
+		XEvent event = {0};
+		XNextEvent(display, &amp;event);
+		if (event.type == KeyPress) {
+			quit = true;
+		}
+	}
+
+	// Do your application work here
+}
+</code></pre>
+<p>Finally, as we already discussed, the connection should be closed by calling <a href="https://tronche.com/gui/x/xlib/display/XCloseDisplay.html" target="_blank">XCloseDisplay</a>
+before quitting the application.</p>
+<pre><code class="language-c">XCloseDisplay(display);
+</code></pre>
+<h2 id="next-steps">Next steps</h2>
+<p>So far, we have only created the basic skeleton for a GUI application. From here onwards
+we could start working on many things, such as:</p>
+<ul>
+<li>Drawing to the window</li>
+<li>Add and improve event handling</li>
+<li>Make use of hardware accelerated graphics via <a href="https://www.opengl.org/" target="_blank">OpenGL</a> or <a href="https://www.vulkan.org/" target="_blank">Vulkan</a></li>
+</ul>
+<p>But we will leave that for next time <span style="font-family: monospace">😉</span></p>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+            <span>
+                <a href="/tags/gui/">gui</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#next-steps">Next steps</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+            <span>
+                <a href="/tags/gui/">gui</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://alexvia.com">Alex Via</a>
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>
