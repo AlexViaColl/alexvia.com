@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://alexvia.com/post/uses_of_pointers_in_c/</loc>
-    <lastmod>2021-10-31T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://alexvia.com/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/coding/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/gui/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/linux/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/post/xlib_opening_window/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/post/</loc>
+    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/post/uses_of_pointers_in_c/</loc>
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/beginner/</loc>
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/c/</loc>
-    <lastmod>2021-10-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://alexvia.com/tags/coding/</loc>
-    <lastmod>2021-10-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://alexvia.com/post/</loc>
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/about/</loc>
