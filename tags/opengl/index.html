@@ -19,7 +19,7 @@
 
 
 
-<title>Posts - Alex Via</title>
+<title>opengl - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,12 +28,12 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/post/index.xml" title="Alex Via" />
+<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/opengl/index.xml" title="Alex Via" />
 
-<meta property="og:title" content="Posts" />
-<meta name="twitter:title" content="Posts" />
+<meta property="og:title" content="opengl" />
+<meta name="twitter:title" content="opengl" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/post/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta property="og:url" content="https://alexvia.com/tags/opengl/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-14T00:00:00+00:00" />
 
@@ -87,52 +87,34 @@
             <div class="col-12 col-md-9 float-left content">
                 
 
+<div class="page-info">
+  <span>Posts with the tag opengl: </span>
+</div>
+
 
 
 <div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://alexvia.com/post/initializing_opengl_on_x11/">Initializing OpenGL in X11</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-14</span>
+  <h2 class="post-item post-title">
+    <a href="https://alexvia.com/post/initializing_opengl_on_x11/">Initializing OpenGL in X11</a>
+  </h2>
+  <div class="post-item post-meta">
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-14</span>
 
 
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/opengl">opengl</a>&nbsp;<a href="/tags/graphics">graphics</a>&nbsp;<a href="/tags/x11">x11</a>&nbsp;</span>
 
-    </div>
-	
+  </div>
+  <div class="post-item post-summary markdown-body">
+    In the last post, we created a simple program to open an X11 window. Today, we will learn how to initialize and use OpenGL to clear the window with a color.
+
+And the result: Linking with OpenGL In order to use OpenGL we need to include the following headers:
+#include &lt;X11/Xutil.h&gt;	// Required to use XVisualInfo #include &lt;GL/gl.h&gt; // OpenGL types and functions like GLuint or glClear #include &lt;GL/glx.h&gt;	// OpenGL X Window bindings like glXCreateContext  And we also need to tell the compiler to link with OpenGL:
+# using pkg-config gcc -o x11_opengl `pkg-config --libs x11 gl` x11_opengl.
+  </div>
 </div>
 
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://alexvia.com/post/xlib_opening_window/">Opening a Window in X11</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-07</span>
 
-
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/gui">gui</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;</span>
-
-    </div>
-	
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
-
-
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beginner">beginner</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
-
-    </div>
-	
-</div>
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
@@ -289,13 +271,6 @@
             </span>
             
         </div>
-    </div>
-    
-    
-    
-    <div class="sidebar-item sidebar-toc">
-        <h3>Table of Contents</h3>
-        
     </div>
     
     
