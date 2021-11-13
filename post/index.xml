@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Alex Via</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Initializing OpenGL in X11</title>
+      <link>https://alexvia.com/post/initializing_opengl_on_x11/</link>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://alexvia.com/post/initializing_opengl_on_x11/</guid>
+      <description>In the last post, we created a simple program to open an X11 window. Today, we will learn how to initialize and use OpenGL to clear the window with a color.
+
+And the result: Linking with OpenGL In order to use OpenGL we need to include the following headers:
+#include &amp;lt;X11/Xutil.h&amp;gt;	// Required to use XVisualInfo #include &amp;lt;GL/gl.h&amp;gt; // OpenGL types and functions like GLuint or glClear #include &amp;lt;GL/glx.h&amp;gt;	// OpenGL X Window bindings like glXCreateContext  And we also need to tell the compiler to link with OpenGL:
+# using pkg-config gcc -o x11_opengl `pkg-config --libs x11 gl` x11_opengl.</description>
+    </item>
+    
     <item>
       <title>Opening a Window in X11</title>
       <link>https://alexvia.com/post/xlib_opening_window/</link>

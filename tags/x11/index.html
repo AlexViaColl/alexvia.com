@@ -19,7 +19,7 @@
 
 
 
-<title>Search - Alex Via</title>
+<title>x11 - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,14 +28,14 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/search/index.xml" title="Alex Via" />
+<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/x11/index.xml" title="Alex Via" />
 
-<meta property="og:title" content="Search" />
-<meta name="twitter:title" content="Search" />
+<meta property="og:title" content="x11" />
+<meta name="twitter:title" content="x11" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/search/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta property="og:url" content="https://alexvia.com/tags/x11/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://alexvia.com/img/og.png" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-13T00:00:00+00:00" />
 
 
 
@@ -88,34 +88,33 @@
                 
 
 <div class="page-info">
-    <form class="search-form" method="GET">
-        <div class="search-input">
-            <input name="s" type="search" autocapitalize="off" autocomplete="off" autocorrect="off"
-                   spellcheck="false" />
-            <button type="submit"><i class="iconfont icon-search-circle-sharp"></i></button>
-        </div>
-    </form>
+  <span>Posts with the tag x11: </span>
 </div>
 
-<div class="search-result-info" style="display: none;"><span>[NUM] results ([TIME] ms)</span></div>
-<div class="search-result-info" style="display: none;"><span>Results not found</span></div>
-<div class="search-result-info" style="display: none;"><span>Failed to load index file</span></div>
-<div id="search-result"></div>
-<script id="search-result-template" type="text/fuse-template">
-    <% for(var i = 0; i < $data.length; i++){ %>
-    <div class="post">
-        <h3 class="post-item post-title-archive">
-            <a href="<%= $data[i].item.permalink %>"><%= $data[i].item.title %></a>
-        </h3>
-        <div class="post-item post-meta-archive">
-            <span><i class="iconfont icon-today-sharp"></i>&nbsp;<%= $data[i].item.date %></span>
-            <span>
-                <i class="iconfont icon-pricetags-sharp"></i>&nbsp;<% if ($data[i].item.tags && $data[i].item.tags.length > 0) { %><% for(var j = 0; j < $data[i].item.tags.length; j++){ %><%= $data[i].item.tags[j] %>&nbsp;<% } %><% } else { %>No tag<% } %>
-            </span>
-        </div>
-    </div>
-    <% } %>
-</script>
+
+
+<div class="post">
+  <h2 class="post-item post-title">
+    <a href="https://alexvia.com/post/initializing_opengl_on_x11/">Initializing OpenGL in X11</a>
+  </h2>
+  <div class="post-item post-meta">
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-13</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/opengl">opengl</a>&nbsp;<a href="/tags/graphics">graphics</a>&nbsp;<a href="/tags/x11">x11</a>&nbsp;</span>
+
+  </div>
+  <div class="post-item post-summary markdown-body">
+    In the last post, we created a simple program to open an X11 window. Today, we will learn how to initialize and use OpenGL to clear the window with a color.
+
+And the result: Linking with OpenGL In order to use OpenGL we need to include the following headers:
+#include &lt;X11/Xutil.h&gt;	// Required to use XVisualInfo #include &lt;GL/gl.h&gt; // OpenGL types and functions like GLuint or glClear #include &lt;GL/glx.h&gt;	// OpenGL X Window bindings like glXCreateContext  And we also need to tell the compiler to link with OpenGL:
+# using pkg-config gcc -o x11_opengl `pkg-config --libs x11 gl` x11_opengl.
+  </div>
+</div>
+
+
 
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
@@ -292,8 +291,10 @@
 </footer>
 
     
-<script defer src="https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
 
 
