@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.89.0-DEV" />
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+
+
+<title>Playing a Sound with ALSA - Alex Via</title>
+
+
+<meta name="author" content="Alex Via" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="linux, alsa, c, audio" />
+
+
+<meta property="og:title" content="Playing a Sound with ALSA" />
+<meta name="twitter:title" content="Playing a Sound with ALSA" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alexvia.com/post/alsa_playback/" /><meta property="og:description" content="The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
+There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer." />
+<meta name="twitter:description" content="The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
+There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer." /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="article:published_time" content="2021-11-19T00:00:00+00:00" /><meta property="article:modified_time" content="2021-11-19T00:00:00+00:00" />
+
+
+
+
+
+<link rel="stylesheet" href="https://alexvia.com/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='true'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://alexvia.com">Alex Via</a>
+            
+            <span class="title-sub">I blog about tech stuff.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://alexvia.com/post/alsa_playback/">Playing a Sound with ALSA</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-19</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/alsa">alsa</a>&nbsp;<a href="/tags/c">c</a>&nbsp;<a href="/tags/audio">audio</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p><a target="_blank" href="https://github.com/AlexViaColl/alsa-playback"><img src="https://gh-card.dev/repos/AlexViaColl/alsa-playback.svg"></a></p>
+<p>The <a href="https://www.alsa-project.org/" target="_blank">Advanced Linux Sound Architecture</a> (ALSA) project is used to
+implement sound card <a href="https://www.kernel.org/doc/html/latest/sound/index.html" target="_blank">drivers</a> in Linux.
+Apart from the Kernel API, ALSA also provides a <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/index.html" target="_blank">library API</a>
+exposing the same functionality as the Kernel API but with a simpler and more usable interface.
+In this post, we will explore how the <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html" target="_blank">PCM Interface</a>
+can be used for sound playback.</p>
+<p>There are quite a few options for dealing with audio on Linux. On one hand, we have high level
+libraries such as <a href="https://www.libsdl.org/" target="_blank">SDL</a> or <a href="https://www.openal.org/" target="_blank">OpenAL</a>
+that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted
+to multimedia such as <a href="https://gstreamer.freedesktop.org/" target="_blank">GStreamer</a>.
+And we also have sound servers like <a href="https://www.freedesktop.org/wiki/Software/PulseAudio/" target="_blank">PulseAudio</a> or <a href="https://jackaudio.org/" target="_blank">JACK</a>
+that manage the use and access to audio devices, and allow us to deal with complex scenarios involving
+multiple streams of audio and possibly multiple sound cards.</p>
+<p>But what all of the above have in common, is that they all use ALSA and its sound card drivers under the hood.</p>
+<h2 id="audio-concepts">Audio Concepts</h2>
+<p>Before we dig into the code, let&rsquo;s review some basic audio concepts.</p>
+<h3 id="pulse-code-modulation-pcm">Pulse Code Modulation (PCM)</h3>
+<p>There are many audio formats out there like mp3, aac, wav, Vorbis (.ogg) but the sound card ultimately
+consumes raw uncompressed PCM data.</p>
+<p><a href="https://en.wikipedia.org/wiki/Pulse-code_modulation" target="_blank">PCM</a> is a way to represent audio signals
+in a digital format by taking samples at uniform intervals and representing samples with a
+predefined number of bits with a process called <a href="https://en.wikipedia.org/wiki/Quantization_%28signal_processing%29" target="_blank">quantization</a>.</p>
+<p><img class="img-zoomable" src="../../pcm.png" alt="PCM" />
+</p>
+<h3 id="sample-rate">Sample rate</h3>
+<p>The sample rate defines how many samples we have per second. It is measured in samples per second or Hz.
+Commonly used sample rates are 48kHz and 44.1kHz.</p>
+<h3 id="bits-per-sample-bit-depth">Bits per sample (bit depth)</h3>
+<p>In the PCM image above, the samples were in a floating-point format in the range -1 to 1.
+If we were to encode these samples using a single-precision floating-point number (a regular <span style="color: var(--color-secondary);">float</span> in C),
+then it would take 32 bits to represent each sample. But floats have a wider range than just -1 to 1,
+so we are wasting space and precision just for the benefit of having nice normalized values.</p>
+<p>An alternative is to use signed integers, ranging from the minimum representable value to the maximum,
+instead of -1 to 1. For example, using a 16 bit integer (<span style="color: var(--color-secondary);">short</span> in most C compilers), the minimum
+sample value would be -32768 and the maximum 32767.</p>
+<h3 id="channels">Channels</h3>
+<p>A channel represents sound from a single source like a microphone or a speaker. But it is very common
+to have multiple channels to represent the recording of multiple microphones at the same time, or for
+playing a different sound on every speaker.</p>
+<p>Most audio file formats support multiple channels of data. We use the terms mono, when there is
+a single audio channel and stereo when there are two channels.</p>
+<h2 id="using-alsa">Using ALSA</h2>
+<p><strong>NOTE</strong>: In order to keep the code samples short we have completely skipped error checking in this post.
+Check out the <a href="https://github.com/AlexViaColl/alsa-playback" target="_blank">repository</a> for a more complete implementation.</p>
+<p>To start using the ALSA library API, we first need to include the <span style="color: var(--color-secondary);">asoundlib.h</span>
+header, containing the definitions for the types and functions that we are going to use.</p>
+<pre><code class="language-c">#include &lt;alsa/asoundlib.h&gt;
+</code></pre>
+<h2 id="opening-the-device">Opening the device</h2>
+<p>When using the PCM interface, the first thing we need to do is open the device with <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga8340c7dc0ac37f37afe5e7c21d6c528b" target="_blank">snd_pcm_open</a>.
+In our case, we want the &ldquo;default&rdquo; stream playback device. When we are done using the device
+we can close it with <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga042aba7262a4cbb4d444b6fc08cb7124" target="_blank">snd_pcm_close</a>.</p>
+<pre><code class="language-c">snd_pcm_t *pcm;
+snd_pcm_open(&amp;pcm, &quot;default&quot;, SND_PCM_STREAM_PLAYBACK, 0);
+</code></pre>
+<h2 id="configuring-the-device">Configuring the device</h2>
+<p>After opening the device, we can configure it with two groups of PCM related parameters.
+The <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___h_w___params.html" target="_blank">hardware parameters</a> control hardware-specific parameters for the stream like the
+sample rate, number of channels or size of the underlying ring buffer. <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___s_w___params.html" target="_blank">Software parameters</a>
+define driver related parameters such as how many samples need to be written before starting
+the stream (start threshold) or if reads and writes to the sound buffer should be aligned or not.</p>
+<p>To specify the hardware parameters, we need to:</p>
+<ol>
+<li>Allocate a variable of type <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga65c737127994f0a980edad744e36dc40" target="_blank">snd_pcm_hw_params_t</a> either on the stack
+(<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___h_w___params.html#ga06b83cb9a788f99b7b09b570b4355cee" target="_blank">snd_pcm_hw_params_alloca</a>), like we will do,
+or on the heap (<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___h_w___params.html#ga6e53d09a9c7cc3f2a692c0af99886237" target="_blank">snd_pcm_hw_params_malloc</a>).</li>
+<li>Fill the parameters with the full configuration space for a PCM (<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___h_w___params.html#ga6e2dd8efbb7a4084bd05e6cc458d84f7" target="_blank">snd_pcm_hw_params_any</a>).</li>
+<li>Restrict the configuration space using <span style="color: var(--color-secondary);">snd_pcm_hw_params_set_*</span> functions.</li>
+<li>&ldquo;Install&rdquo; or set the parameters for the device (<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga1ca0dc120a484965e26cabf966502330" target="_blank">snd_pcm_hw_params</a>).</li>
+</ol>
+<pre><code class="language-c">snd_pcm_hw_params_t *hw_params;
+snd_pcm_hw_params_alloca(&amp;hw_params);
+
+snd_pcm_hw_params_any(pcm, hw_params);
+snd_pcm_hw_params_set_access(pcm, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED);
+snd_pcm_hw_params_set_format(pcm, hw_params, SND_PCM_FORMAT_S16_LE);
+snd_pcm_hw_params_set_channels(pcm, hw_params, 1);
+snd_pcm_hw_params_set_rate(pcm, hw_params, 48000, 0);
+snd_pcm_hw_params_set_periods(pcm, hw_params, 10, 0);
+snd_pcm_hw_params_set_period_time(pcm, hw_params, 100000, 0); // 0.1 seconds
+
+snd_pcm_hw_params(pcm, hw_params);
+</code></pre>
+<p><a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m___s_w___params.html" target="_blank">Software parameters</a>
+are configured in a similar fashion, but we won&rsquo;t need to use them for this simple program.</p>
+<h2 id="writing-the-samples">Writing the samples</h2>
+<p>Now that we have the device configured, we are ready to start writing samples to the device for playback.</p>
+<p>We start by creating a small intermediate buffer on the stack to store the samples for a second. Then
+we need to initialize the samples to the sound that we want to play, <a href="#generating-a-sine-wave">somehow</a>.
+Last but not least, we invoke the <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#gabc748a500743713eafa960c7d104ca6f" target="_blank">snd_pcm_writei</a>
+function passing our intermediate buffer and the number of samples which will get copied to the
+driver&rsquo;s playback buffer.</p>
+<pre><code class="language-c">short samples[48000] = {0};
+
+// Initialize the samples somehow
+
+snd_pcm_writei(pcm, samples, 48000);
+</code></pre>
+<h2 id="closing-the-device">Closing the Device</h2>
+<p>Finally, we can wait for the device to play all of our samples (<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga49afc5b8527f30c33fafa476533c9f86" target="_blank">snd_pcm_drain</a>)
+and then we can close the device (<a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#ga042aba7262a4cbb4d444b6fc08cb7124" target="_blank">snd_pcm_close</a>)</p>
+<pre><code class="language-c">snd_pcm_drain(pcm);
+snd_pcm_close(pcm);
+</code></pre>
+<h2 id="generating-a-sine-wave">Generating a sine wave</h2>
+<p>Implementing a sine wave function is pretty simple, we just need to apply the <a href="https://en.wikipedia.org/wiki/Sine_wave" target="_blank">formula</a>:
+<em>y(t) = Asin(2πft + φ)</em></p>
+<img src="../../sine_wave.png" alt="Sine wave" width="700"/>
+<p>In our case, we have hardcoded the amplitude to 10000 and the phase to 0 and we have converted
+a sample index (our i variable) to seconds, dividing it by the sampling rate.</p>
+<pre><code class="language-c">short *sine_wave(short *buffer, size_t sample_count, int freq) {
+	for (int i = 0; i &lt; sample_count; i++) {
+		buffer[i] = 10000 * sinf(2 * M_PI * freq * ((float)i / SAMPLE_RATE));
+	}
+	return buffer;
+}
+
+...
+
+snd_pcm_writei(pcm, sine_wave(buffer, SAMPLE_RATE, 200), SAMPLE_RATE);
+</code></pre>
+<h2 id="generating-a-square-wave">Generating a square wave</h2>
+<p>To generate a square wave we just have to detect whether the current sample index is on the first
+half of the period or on the second half, and output the maximum or minimum amplitude respectively.</p>
+<img src="../../square_wave.png" alt="Square wave" width="700"/>
+<p>We can easily obtain the number of samples of a full period dividing the sample rate by the frequency.</p>
+<pre><code class="language-c">short *square_wave(short *buffer, size_t sample_count, int freq) {
+	int samples_full_cycle = (float)SAMPLE_RATE / (float)freq;
+	int samples_half_cycle = samples_full_cycle / 2.0f;
+	int cycle_index = 0;
+	for (int i = 0; i &lt; sample_count; i++) {
+		buffer[i] = cycle_index &lt; samples_half_cycle ? 10000 : -10000;
+		cycle_index = (cycle_index + 1) % samples_full_cycle;
+	}
+	return buffer;
+}
+
+...
+
+snd_pcm_writei(pcm, square_wave(buffer, SAMPLE_RATE, 200), SAMPLE_RATE);
+</code></pre>
+<h2 id="playing-raw-s16le">Playing raw S16LE</h2>
+<p>Instead of generating the sound procedurally we can read sound samples from a raw pcm file and play them.</p>
+<p><img class="img-zoomable" src="../../raw_format.png" alt="Raw S16LE format" />
+
+<img class="img-zoomable" src="../../raw_wave.png" alt="Raw wave" />
+</p>
+<p>I have provided a sample raw file in the <a href="https://github.com/AlexViaColl/alsa-playback" target="_blank">repository</a>,
+but you can also extract/convert a raw pcm from your audio files using the following
+<a href="https://www.ffmpeg.org/" target="_blank">ffmpeg</a> command:</p>
+<pre><code class="language-console">ffmpeg -i input.mp3 -acodec pcm_s16le -f s16le -ac 1 -ar 48000 output.raw
+</code></pre>
+<p>The good thing about the raw pcm format is that we only need to read it into memory and we can use it
+directly as the buffer for <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/group___p_c_m.html#gabc748a500743713eafa960c7d104ca6f" target="_blank">snd_pcm_writei</a>.</p>
+<pre><code class="language-c">FILE *f = fopen(&quot;./output.raw&quot;, &quot;rb&quot;);
+fseek(f, 0, SEEK_END);
+long file_size = ftell(f);
+fseek(f, 0, SEEK_SET);
+short *samples = (short*)malloc(file_size);
+fread(samples, 1, file_size, f);
+fclose(f);
+
+snd_pcm_writei(pcm, samples, SAMPLE_RATE);
+
+free(samples);
+</code></pre>
+<h2 id="what-next">What next</h2>
+<p>So far, our code only plays sound for 1 second (48000 samples) and then quits. The implementation
+in the <a href="https://github.com/AlexViaColl/alsa-playback" target="_blank">repo</a> provides options for looping as well as
+choosing the kind of sound to play.</p>
+<p>A couple of suggested exercises could be, to implement a function for generating a sawtooth wave,
+or apply the necessary changes to play stereo (2 channels).</p>
+<p>We have just scratched the surface on the possibilities that ALSA provides, we encourage readers to
+explore the <a href="https://www.alsa-project.org/alsa-doc/alsa-lib/examples.html" target="_blank">examples</a> in the
+documentation.</p>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/alsa/">alsa</a>
+            </span>
+            
+            <span>
+                <a href="/tags/audio/">audio</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+            <span>
+                <a href="/tags/graphics/">graphics</a>
+            </span>
+            
+            <span>
+                <a href="/tags/gui/">gui</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/opengl/">opengl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/x11/">x11</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#audio-concepts">Audio Concepts</a>
+      <ul>
+        <li><a href="#pulse-code-modulation-pcm">Pulse Code Modulation (PCM)</a></li>
+        <li><a href="#sample-rate">Sample rate</a></li>
+        <li><a href="#bits-per-sample-bit-depth">Bits per sample (bit depth)</a></li>
+        <li><a href="#channels">Channels</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-alsa">Using ALSA</a></li>
+    <li><a href="#opening-the-device">Opening the device</a></li>
+    <li><a href="#configuring-the-device">Configuring the device</a></li>
+    <li><a href="#writing-the-samples">Writing the samples</a></li>
+    <li><a href="#closing-the-device">Closing the Device</a></li>
+    <li><a href="#generating-a-sine-wave">Generating a sine wave</a></li>
+    <li><a href="#generating-a-square-wave">Generating a square wave</a></li>
+    <li><a href="#playing-raw-s16le">Playing raw S16LE</a></li>
+    <li><a href="#what-next">What next</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/AlexViaColl" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/alexviacoll" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/alsa/">alsa</a>
+            </span>
+            
+            <span>
+                <a href="/tags/audio/">audio</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beginner/">beginner</a>
+            </span>
+            
+            <span>
+                <a href="/tags/c/">c</a>
+            </span>
+            
+            <span>
+                <a href="/tags/coding/">coding</a>
+            </span>
+            
+            <span>
+                <a href="/tags/graphics/">graphics</a>
+            </span>
+            
+            <span>
+                <a href="/tags/gui/">gui</a>
+            </span>
+            
+            <span>
+                <a href="/tags/linux/">linux</a>
+            </span>
+            
+            <span>
+                <a href="/tags/opengl/">opengl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/x11/">x11</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#audio-concepts">Audio Concepts</a>
+      <ul>
+        <li><a href="#pulse-code-modulation-pcm">Pulse Code Modulation (PCM)</a></li>
+        <li><a href="#sample-rate">Sample rate</a></li>
+        <li><a href="#bits-per-sample-bit-depth">Bits per sample (bit depth)</a></li>
+        <li><a href="#channels">Channels</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-alsa">Using ALSA</a></li>
+    <li><a href="#opening-the-device">Opening the device</a></li>
+    <li><a href="#configuring-the-device">Configuring the device</a></li>
+    <li><a href="#writing-the-samples">Writing the samples</a></li>
+    <li><a href="#closing-the-device">Closing the Device</a></li>
+    <li><a href="#generating-a-sine-wave">Generating a sine wave</a></li>
+    <li><a href="#generating-a-square-wave">Generating a square wave</a></li>
+    <li><a href="#playing-raw-s16le">Playing raw S16LE</a></li>
+    <li><a href="#what-next">What next</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020-2021
+                <a href="https://alexvia.com">Alex Via</a>
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

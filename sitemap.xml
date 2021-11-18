@@ -3,7 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://alexvia.com/</loc>
-    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/alsa/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/audio/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/c/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/tags/linux/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/post/alsa_playback/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alexvia.com/post/</loc>
+    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/graphics/</loc>
     <lastmod>2021-11-13T00:00:00+00:00</lastmod>
@@ -12,9 +30,6 @@
     <lastmod>2021-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/opengl/</loc>
-    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://alexvia.com/post/</loc>
     <lastmod>2021-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/x11/</loc>
@@ -26,9 +41,6 @@
     <loc>https://alexvia.com/tags/gui/</loc>
     <lastmod>2021-11-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://alexvia.com/tags/linux/</loc>
-    <lastmod>2021-11-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://alexvia.com/post/xlib_opening_window/</loc>
     <lastmod>2021-11-07T00:00:00+00:00</lastmod>
   </url><url>
@@ -36,9 +48,6 @@
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/tags/beginner/</loc>
-    <lastmod>2021-10-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://alexvia.com/tags/c/</loc>
     <lastmod>2021-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alexvia.com/about/</loc>
