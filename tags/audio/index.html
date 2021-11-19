@@ -19,7 +19,7 @@
 
 
 
-<title>beginner - Alex Via</title>
+<title>audio - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,14 +28,14 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/beginner/index.xml" title="Alex Via" />
+<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/audio/index.xml" title="Alex Via" />
 
-<meta property="og:title" content="beginner" />
-<meta name="twitter:title" content="beginner" />
+<meta property="og:title" content="audio" />
+<meta name="twitter:title" content="audio" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/tags/beginner/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta property="og:url" content="https://alexvia.com/tags/audio/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-10-31T00:00:00+00:00" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-19T00:00:00+00:00" />
 
 
 
@@ -88,26 +88,26 @@
                 
 
 <div class="page-info">
-  <span>Posts with the tag beginner: </span>
+  <span>Posts with the tag audio: </span>
 </div>
 
 
 
 <div class="post">
   <h2 class="post-item post-title">
-    <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
+    <a href="https://alexvia.com/post/alsa_playback/">Playing a Sound with ALSA</a>
   </h2>
   <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-19</span>
 
 
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beginner">beginner</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/alsa">alsa</a>&nbsp;<a href="/tags/c">c</a>&nbsp;<a href="/tags/audio">audio</a>&nbsp;</span>
 
   </div>
   <div class="post-item post-summary markdown-body">
-    At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&rsquo;s type.
-printf(&quot;%d\n&quot;, sizeof(int*)); printf(&quot;%d\n&quot;, sizeof(char*)); printf(&quot;%d\n&quot;, sizeof(void*)); printf(&quot;%d\n&quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in.
+    The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
+There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer.
   </div>
 </div>
 
