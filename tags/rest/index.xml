@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rest on Alex Via</title>
+    <link>https://alexvia.com/tags/rest/</link>
+    <description>Recent content in rest on Alex Via</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/tags/rest/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Checking file integrity using the GitLab API</title>
+      <link>https://alexvia.com/post/file_integrity_gitlab_api/</link>
+      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://alexvia.com/post/file_integrity_gitlab_api/</guid>
+      <description>The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
+I decided to take the opportunity to learn a bit about using the GitLab API. Here&amp;rsquo;s a breakdown of what I learned:
+ How to create, use and manage access tokens. Access the GitLab API programmatically using JavaScript. How to compare files &amp;ldquo;by hash&amp;rdquo; instead of by content.  Creating an Access Token Depending on what endpoints of the GitLab API you need to access, a personal access token might be required.</description>
+    </item>
+    
+  </channel>
+</rss>
