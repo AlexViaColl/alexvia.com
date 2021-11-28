@@ -19,7 +19,7 @@
 
 
 
-<title>coding - Alex Via</title>
+<title>rest - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,14 +28,14 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/coding/index.xml" title="Alex Via" />
+<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/rest/index.xml" title="Alex Via" />
 
-<meta property="og:title" content="coding" />
-<meta name="twitter:title" content="coding" />
+<meta property="og:title" content="rest" />
+<meta name="twitter:title" content="rest" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/tags/coding/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+<meta property="og:url" content="https://alexvia.com/tags/rest/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-07T00:00:00+00:00" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-28T00:00:00+00:00" />
 
 
 
@@ -88,45 +88,27 @@
                 
 
 <div class="page-info">
-  <span>Posts with the tag coding: </span>
+  <span>Posts with the tag rest: </span>
 </div>
 
 
 
 <div class="post">
   <h2 class="post-item post-title">
-    <a href="https://alexvia.com/post/xlib_opening_window/">Opening a Window in X11</a>
+    <a href="https://alexvia.com/post/file_integrity_gitlab_api/">Checking file integrity using the GitLab API</a>
   </h2>
   <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-07</span>
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-28</span>
 
 
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/gui">gui</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/gitlab">gitlab</a>&nbsp;<a href="/tags/api">api</a>&nbsp;<a href="/tags/rest">rest</a>&nbsp;<a href="/tags/javascript">javascript</a>&nbsp;<a href="/tags/nodejs">nodejs</a>&nbsp;</span>
 
   </div>
   <div class="post-item post-summary markdown-body">
-    The X Window System is a windowing system commonly used in UNIX-based operating systems. The latest version of X is version 11 (released 2012), that&rsquo;s why it&rsquo;s often abbreviated as X11.
-X11 is based on a client-server architecture. The server is the one who has direct access over the hardware devices such as the monitor screens, the keyboard and the mouse. Client applications should make requests to the server in order to achieve any kind of graphical output to the screen.
-X is not the only Window System available for Linux and other UNIX-like operating systems. Wayland is a more modern project with the aim of replacing X.
-  </div>
-</div>
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://alexvia.com/post/uses_of_pointers_in_c/">8 Uses of Pointers in C</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-31</span>
-
-
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beginner">beginner</a>&nbsp;<a href="/tags/coding">coding</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
-
-  </div>
-  <div class="post-item post-summary markdown-body">
-    At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&rsquo;s type.
-printf(&quot;%d\n&quot;, sizeof(int*)); printf(&quot;%d\n&quot;, sizeof(char*)); printf(&quot;%d\n&quot;, sizeof(void*)); printf(&quot;%d\n&quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in.
+    The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
+I decided to take the opportunity to learn a bit about using the GitLab API. Here&rsquo;s a breakdown of what I learned:
+ How to create, use and manage access tokens. Access the GitLab API programmatically using JavaScript. How to compare files &ldquo;by hash&rdquo; instead of by content.  Creating an Access Token Depending on what endpoints of the GitLab API you need to access, a personal access token might be required.
   </div>
 </div>
 
