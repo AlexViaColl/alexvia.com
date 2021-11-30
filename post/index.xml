@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Checking file integrity using the GitLab API</title>
-      <link>https://alexvia.com/post/file_integrity_gitlab_api/</link>
+      <link>https://alexvia.com/post/004_file_integrity_gitlab_api/</link>
       <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/file_integrity_gitlab_api/</guid>
+      <guid>https://alexvia.com/post/004_file_integrity_gitlab_api/</guid>
       <description>The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
 I decided to take the opportunity to learn a bit about using the GitLab API. Here&amp;rsquo;s a breakdown of what I learned:
  How to create, use and manage access tokens. Access the GitLab API programmatically using JavaScript. How to compare files &amp;ldquo;by hash&amp;rdquo; instead of by content.  Creating an Access Token Depending on what endpoints of the GitLab API you need to access, a personal access token might be required.</description>
@@ -20,20 +20,20 @@ I decided to take the opportunity to learn a bit about using the GitLab API. Her
     
     <item>
       <title>Playing a Sound with ALSA</title>
-      <link>https://alexvia.com/post/alsa_playback/</link>
+      <link>https://alexvia.com/post/003_alsa_playback/</link>
       <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/alsa_playback/</guid>
+      <guid>https://alexvia.com/post/003_alsa_playback/</guid>
       <description>The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
 There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer.</description>
     </item>
     
     <item>
       <title>Initializing OpenGL in X11</title>
-      <link>https://alexvia.com/post/initializing_opengl_on_x11/</link>
+      <link>https://alexvia.com/post/002_initializing_opengl_on_x11/</link>
       <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/initializing_opengl_on_x11/</guid>
+      <guid>https://alexvia.com/post/002_initializing_opengl_on_x11/</guid>
       <description>In the last post, we created a simple program to open an X11 window. Today, we will learn how to initialize and use OpenGL to clear the window with a color.
 
 And the result: Linking with OpenGL In order to use OpenGL we need to include the following headers:
@@ -43,10 +43,10 @@ And the result: Linking with OpenGL In order to use OpenGL we need to include th
     
     <item>
       <title>Opening a Window in X11</title>
-      <link>https://alexvia.com/post/xlib_opening_window/</link>
+      <link>https://alexvia.com/post/001_xlib_opening_window/</link>
       <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/xlib_opening_window/</guid>
+      <guid>https://alexvia.com/post/001_xlib_opening_window/</guid>
       <description>The X Window System is a windowing system commonly used in UNIX-based operating systems. The latest version of X is version 11 (released 2012), that&amp;rsquo;s why it&amp;rsquo;s often abbreviated as X11.
 X11 is based on a client-server architecture. The server is the one who has direct access over the hardware devices such as the monitor screens, the keyboard and the mouse. Client applications should make requests to the server in order to achieve any kind of graphical output to the screen.
 X is not the only Window System available for Linux and other UNIX-like operating systems. Wayland is a more modern project with the aim of replacing X.</description>
@@ -54,10 +54,10 @@ X is not the only Window System available for Linux and other UNIX-like operatin
     
     <item>
       <title>8 Uses of Pointers in C</title>
-      <link>https://alexvia.com/post/uses_of_pointers_in_c/</link>
+      <link>https://alexvia.com/post/000_uses_of_pointers_in_c/</link>
       <pubDate>Sun, 31 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/uses_of_pointers_in_c/</guid>
+      <guid>https://alexvia.com/post/000_uses_of_pointers_in_c/</guid>
       <description>At a fundamental level a pointer is just a number which represents a memory address. The size of a pointer depends on the platform, for 64 bit platforms the size is 64 bits (8 bytes) and for 32 bit platforms the size is 32 bits (4 bytes), but the size is always the same for a given platform regardless of the pointer&amp;rsquo;s type.
 printf(&amp;quot;%d\n&amp;quot;, sizeof(int*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(char*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(void*)); printf(&amp;quot;%d\n&amp;quot;, sizeof(MyCustomType*));  A memory address specifies the location of a single byte in memory, if we wanted to read only a single bit from memory, we would have to read a whole byte and then do some bit twiddling to extract the bit we were interested in.</description>
     </item>

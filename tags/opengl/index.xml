@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/tags/opengl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Initializing OpenGL in X11</title>
-      <link>https://alexvia.com/post/initializing_opengl_on_x11/</link>
+      <link>https://alexvia.com/post/002_initializing_opengl_on_x11/</link>
       <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/initializing_opengl_on_x11/</guid>
+      <guid>https://alexvia.com/post/002_initializing_opengl_on_x11/</guid>
       <description>In the last post, we created a simple program to open an X11 window. Today, we will learn how to initialize and use OpenGL to clear the window with a color.
 
 And the result: Linking with OpenGL In order to use OpenGL we need to include the following headers:

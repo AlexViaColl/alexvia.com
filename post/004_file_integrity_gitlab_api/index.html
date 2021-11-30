@@ -34,7 +34,7 @@
 <meta property="og:title" content="Checking file integrity using the GitLab API" />
 <meta name="twitter:title" content="Checking file integrity using the GitLab API" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://alexvia.com/post/file_integrity_gitlab_api/" /><meta property="og:description" content="The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
+<meta property="og:url" content="https://alexvia.com/post/004_file_integrity_gitlab_api/" /><meta property="og:description" content="The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
 I decided to take the opportunity to learn a bit about using the GitLab API. Here&rsquo;s a breakdown of what I learned:
  How to create, use and manage access tokens. Access the GitLab API programmatically using JavaScript. How to compare files &ldquo;by hash&rdquo; instead of by content.  Creating an Access Token Depending on what endpoints of the GitLab API you need to access, a personal access token might be required." />
 <meta name="twitter:description" content="The other day at work I needed a way to verify the integrity of a file under source control (GitLab) against a local copy of the same file, which was potentially modified or outdated.
@@ -95,7 +95,7 @@ I decided to take the opportunity to learn a bit about using the GitLab API. Her
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://alexvia.com/post/file_integrity_gitlab_api/">Checking file integrity using the GitLab API</a>
+        <a href="https://alexvia.com/post/004_file_integrity_gitlab_api/">Checking file integrity using the GitLab API</a>
     </h2>
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-28</span>
@@ -188,7 +188,7 @@ And the result looks like this:</p>
 <p><img class="img-zoomable" src="../../gitlab_file_info.png" alt="file info" />
 </p>
 <p><strong>NOTE:</strong> You can also remove the import from the first line and run the exact same code from
-your developer tools of your browser.</p>
+the developer tools of your browser.</p>
 <p><img class="img-zoomable" src="../../gitlab_file_info_browser.png" alt="file info browser" />
 </p>
 <h2 id="computing-the-sha-256">Computing the SHA-256</h2>
@@ -219,6 +219,14 @@ if (computeHash(fileContents) !== fileInfo.content_sha256) {
 	console.error(&quot;Hashes don't match!&quot;);
 }
 </code></pre>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Today we have explored only a single resource from the <a href="https://docs.gitlab.com/ee/api/api_resources.html" target="_blank">GitLab REST API</a>
+and one possible use case. But we have just scratched the surface, there are many other resources which
+might come in handy when developing your tool or application.</p>
+<p>If you are like me, and use GitHub instead of or in addition to GitLab, worry not. GitHub also provides
+a <a href="https://docs.github.com/en/rest" target="_blank">REST API</a> (and GraphQL) with equivalent functionality. In fact, GitHub provides
+an official library, <a href="https://github.com/octokit/octokit.js" target="_blank">Octokit</a>, which simplifies the integration
+with the API.</p>
 
     </div>
 </article>
@@ -331,6 +339,7 @@ if (computeHash(fileContents) !== fileInfo.content_sha256) {
     <li><a href="#creating-an-access-token">Creating an Access Token</a></li>
     <li><a href="#using-the-gitlab-api">Using the GitLab API</a></li>
     <li><a href="#computing-the-sha-256">Computing the SHA-256</a></li>
+    <li><a href="#final-thoughts">Final Thoughts</a></li>
   </ul>
 </nav></div>
 </aside>
@@ -453,6 +462,7 @@ if (computeHash(fileContents) !== fileInfo.content_sha256) {
     <li><a href="#creating-an-access-token">Creating an Access Token</a></li>
     <li><a href="#using-the-gitlab-api">Using the GitLab API</a></li>
     <li><a href="#computing-the-sha-256">Computing the SHA-256</a></li>
+    <li><a href="#final-thoughts">Final Thoughts</a></li>
   </ul>
 </nav>
     </div>
