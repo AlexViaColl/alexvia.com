@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 19 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/tags/alsa/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Playing a Sound with ALSA</title>
-      <link>https://alexvia.com/post/alsa_playback/</link>
+      <link>https://alexvia.com/post/003_alsa_playback/</link>
       <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/alsa_playback/</guid>
+      <guid>https://alexvia.com/post/003_alsa_playback/</guid>
       <description>The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
 There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer.</description>
     </item>

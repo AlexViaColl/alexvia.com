@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 07 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/tags/gui/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Opening a Window in X11</title>
-      <link>https://alexvia.com/post/xlib_opening_window/</link>
+      <link>https://alexvia.com/post/001_xlib_opening_window/</link>
       <pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://alexvia.com/post/xlib_opening_window/</guid>
+      <guid>https://alexvia.com/post/001_xlib_opening_window/</guid>
       <description>The X Window System is a windowing system commonly used in UNIX-based operating systems. The latest version of X is version 11 (released 2012), that&amp;rsquo;s why it&amp;rsquo;s often abbreviated as X11.
 X11 is based on a client-server architecture. The server is the one who has direct access over the hardware devices such as the monitor screens, the keyboard and the mouse. Client applications should make requests to the server in order to achieve any kind of graphical output to the screen.
 X is not the only Window System available for Linux and other UNIX-like operating systems. Wayland is a more modern project with the aim of replacing X.</description>
