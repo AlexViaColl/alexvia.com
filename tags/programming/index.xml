@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming on Alex Via</title>
+    <link>https://alexvia.com/tags/programming/</link>
+    <description>Recent content in programming on Alex Via</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advent of Code 2021 (Days 1-5)</title>
+      <link>https://alexvia.com/post/005_advent_of_code_2021_days_1_5/</link>
+      <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://alexvia.com/post/005_advent_of_code_2021_days_1_5/</guid>
+      <description>Advent of Code is an online Advent calendar where you have to solve two small programming puzzles, of increasing difficulty, every day from December 1st to the 25th.
+Last year, I solved most of the problems using Rust. The challenge for this year is to use a different programming language every day, based on Tsoding.
+You can find my solutions on GitHub: 
+For the first 5 days I decided to use functional programming languages (mostly).
+Day 1 - Haskell Day 2 - Ruby Day 3 - OCaml Day 4 - Scala Day 5 - Erlang This first week turned out to be quite a challenge.</description>
+    </item>
+    
+  </channel>
+</rss>
