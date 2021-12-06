@@ -19,7 +19,7 @@
 
 
 
-<title>audio - Alex Via</title>
+<title>Advent of Code 2021 (Days 1-5) - Alex Via</title>
 
 
 <meta name="author" content="Alex Via" />
@@ -28,14 +28,24 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://alexvia.com/tags/audio/index.xml" title="Alex Via" />
+<meta name="keywords" content="programming" />
 
-<meta property="og:title" content="audio" />
-<meta name="twitter:title" content="audio" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://alexvia.com/tags/audio/" /><meta property="og:image" content="https://alexvia.com/img/og.png" />
+
+<meta property="og:title" content="Advent of Code 2021 (Days 1-5)" />
+<meta name="twitter:title" content="Advent of Code 2021 (Days 1-5)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://alexvia.com/post/005_advent_of_code_2021_days_1_5/" /><meta property="og:description" content="Advent of Code is an online Advent calendar where you have to solve two small programming puzzles, of increasing difficulty, every day from December 1st to the 25th.
+Last year, I solved most of the problems using Rust. The challenge for this year is to use a different programming language every day, based on Tsoding.
+You can find my solutions on GitHub: 
+For the first 5 days I decided to use functional programming languages (mostly).
+Day 1 - Haskell Day 2 - Ruby Day 3 - OCaml Day 4 - Scala Day 5 - Erlang This first week turned out to be quite a challenge." />
+<meta name="twitter:description" content="Advent of Code is an online Advent calendar where you have to solve two small programming puzzles, of increasing difficulty, every day from December 1st to the 25th.
+Last year, I solved most of the problems using Rust. The challenge for this year is to use a different programming language every day, based on Tsoding.
+You can find my solutions on GitHub: 
+For the first 5 days I decided to use functional programming languages (mostly).
+Day 1 - Haskell Day 2 - Ruby Day 3 - OCaml Day 4 - Scala Day 5 - Erlang This first week turned out to be quite a challenge." /><meta property="og:image" content="https://alexvia.com/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="og:updated_time" content="2021-11-19T00:00:00+00:00" />
+<meta name="twitter:image" content="https://alexvia.com/img/og.png" /><meta property="article:published_time" content="2021-12-06T00:00:00+00:00" /><meta property="article:modified_time" content="2021-12-06T00:00:00+00:00" />
 
 
 
@@ -86,30 +96,87 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-
-<div class="page-info">
-  <span>Posts with the tag audio: </span>
-</div>
-
-
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://alexvia.com/post/003_alsa_playback/">Playing a Sound with ALSA</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-11-19</span>
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://alexvia.com/post/005_advent_of_code_2021_days_1_5/">Advent of Code 2021 (Days 1-5)</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-12-06</span>
 
 
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/linux">linux</a>&nbsp;<a href="/tags/alsa">alsa</a>&nbsp;<a href="/tags/c">c</a>&nbsp;<a href="/tags/audio">audio</a>&nbsp;</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/programming">programming</a>&nbsp;</span>
 
-  </div>
-  <div class="post-item post-summary markdown-body">
-    The Advanced Linux Sound Architecture (ALSA) project is used to implement sound card drivers in Linux. Apart from the Kernel API, ALSA also provides a library API exposing the same functionality as the Kernel API but with a simpler and more usable interface. In this post, we will explore how the PCM Interface can be used for sound playback.
-There are quite a few options for dealing with audio on Linux. On one hand, we have high level libraries such as SDL or OpenAL that allow us to play a sound with a few lines of code. Then we also have entire frameworks devoted to multimedia such as GStreamer.
-  </div>
-</div>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p><a href="https://adventofcode.com/" target="_blank">Advent of Code</a> is an online Advent calendar where you have to solve two small programming puzzles,
+of increasing difficulty, every day from December 1st to the 25th.</p>
+<p><a href="https://github.com/AlexViaColl/aoc2020" target="_blank">Last year</a>, I solved most of the problems using <a href="https://www.rust-lang.org/" target="_blank">Rust</a>. The challenge for this year is to use a different programming language every day, based on <a href="https://github.com/tsoding/aoc-2020" target="_blank">Tsoding</a>.</p>
+<p>You can find my solutions on <a href="https://github.com/AlexViaColl/aoc-2021" target="_blank">GitHub</a>:
+<a target="_blank" href="https://github.com/AlexViaColl/aoc-2021"><img src="https://gh-card.dev/repos/AlexViaColl/aoc-2021.svg"></a></p>
+<p>For the first 5 days I decided to use functional programming languages (mostly).</p>
+<h4 id="day-1---haskellhttpsgithubcomalexviacollaoc-2021treemainday-01-haskell"><a href="https://github.com/AlexViaColl/aoc-2021/tree/main/day-01-haskell" target="_blank">Day 1 - Haskell</a></h4>
+<h4 id="day-2---rubyhttpsgithubcomalexviacollaoc-2021treemainday-02-ruby"><a href="https://github.com/AlexViaColl/aoc-2021/tree/main/day-02-ruby" target="_blank">Day 2 - Ruby</a></h4>
+<h4 id="day-3---ocamlhttpsgithubcomalexviacollaoc-2021treemainday-03-ocaml"><a href="https://github.com/AlexViaColl/aoc-2021/tree/main/day-03-ocaml" target="_blank">Day 3 - OCaml</a></h4>
+<h4 id="day-4---scalahttpsgithubcomalexviacollaoc-2021treemainday-04-scala"><a href="https://github.com/AlexViaColl/aoc-2021/tree/main/day-04-scala" target="_blank">Day 4 - Scala</a></h4>
+<h4 id="day-5---erlanghttpsgithubcomalexviacollaoc-2021treemainday-05-erlang"><a href="https://github.com/AlexViaColl/aoc-2021/tree/main/day-05-erlang" target="_blank">Day 5 - Erlang</a></h4>
+<p>This first week turned out to be quite a challenge. I had never before programmed using Haskell, OCaml, Scala nor Erlang.</p>
+<p>My solutions probably aren&rsquo;t the most elegant ones out there, but I managed to get away without using the imperative features
+of these languages.</p>
+<p>And I learned a few new things along the way, such as:</p>
+<ul>
+<li>List comprehension</li>
+<li>Partially applied functions</li>
+<li>Pattern matching</li>
+<li>Tail recursion</li>
+</ul>
+<p>I&rsquo;m looking forward to get better using functional programming languages in the future.</p>
+<!-- ## [Day 3](https://adventofcode.com/2021/day/3) - [Perl](https://www.perl.org/) -->
+<!--
+1-5     (5) Haskell     Ruby        Scala       OCaml       Erlang
+6-12    (7) Perl        Ada         PHP         D           Nim         Pascal      ? (Crystal, Dart, Julia, Lisp)
+13-19   (7) Java        C#          Lua         C++         Zig         Kotlin      JavaScript                  
+20-25   (6) Python      C           Rust        Go          TypeScript  Assembly
+-->
+<!--
+Ada
+Assembly
+C
+C#
+C++
+Crystal
+D
+Dart
+Elixir
+Erlang
+Go
+Groovy
+Haskell
+Jai
+Java
+JavaScript
+Julia
+Kotlin
+Lisp
+Lua
+Nim
+OCaml
+PHP
+Pascal
+Perl
+Python
+Ruby
+Rust
+Scala
+TypeScript
+Zig
+-->
+
+    </div>
+</article>
+
 
 
 
@@ -216,9 +283,16 @@ There are quite a few options for dealing with audio on Linux. On one hand, we h
             
         </div>
     </div>
-    
-    
-    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
 </aside>
 
         </div>
@@ -332,6 +406,21 @@ There are quite a few options for dealing with audio on Linux. On one hand, we h
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
     
     
