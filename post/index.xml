@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Alex Via</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://alexvia.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Advent of Code 2021 (Days 6-12)</title>
+      <link>https://alexvia.com/post/006_advent_of_code_2021_days_6_12/</link>
+      <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://alexvia.com/post/006_advent_of_code_2021_days_6_12/</guid>
+      <description>Following up on the last post, I continue to solve Advent of Code puzzles using a different programming language every day.
+You can find my solutions on GitHub:
+
+For the second week I chose languages which I had never used before.
+Day 6 - Perl Day 7 - Ada Day 8 - PHP Day 9 - D Day 10 - Nim Day 11 - Julia Day 12 - Dart After struggling with functional languages last time, this second week has been a bit easier. I got used to the new languages pretty fast, as they share many concepts with other languages that I&amp;rsquo;m already familiar with.</description>
+    </item>
+    
     <item>
       <title>Advent of Code 2021 (Days 1-5)</title>
       <link>https://alexvia.com/post/005_advent_of_code_2021_days_1_5/</link>
